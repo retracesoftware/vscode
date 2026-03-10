@@ -85,6 +85,13 @@
       }
     ],
     "menus": {
+      "view/title": [
+        {
+          "command": "retrace.openRecording",
+          "when": "view == retrace.sidebar",
+          "group": "navigation"
+        }
+      ],
       "explorer/context": [
         {
           "command": "retrace.openRecordingFromFile",
@@ -93,11 +100,22 @@
         }
       ]
     },
+    "configuration": {
+      "title": "Retrace",
+      "properties": {
+        "retrace.debugProtocol": {
+          "type": "boolean",
+          "default": false,
+          "description": "Log all commands sent to and received from the Python replay process (sets RETRACE_DEBUG_PROTOCOL)."
+        }
+      }
+    },
     "commands": [
       {
         "command": "retrace.openRecording",
         "title": "Open Recording...",
-        "category": "Retrace"
+        "category": "Retrace",
+        "icon": "$(folder-opened)"
       },
       {
         "command": "retrace.openRecordingFromFile",

@@ -24,8 +24,17 @@ export class RetraceDebugAdapterFactory
       args.push("--pid", String(config.pid));
     }
 
+    const env: Record<string, string> = {};
+    if (vscode.workspace.getConfiguration("retrace").get<boolean>("debugProtocol")) {
+      env.RETRACE_DEBUG_PROTOCOL = "1";
+      log("Protocol logging enabled (RETRACE_DEBUG_PROTOCOL=1)");
+    }
+
     log(`Debug adapter: ${binary} ${args.join(" ")}`);
 
-    return new vscode.DebugAdapterExecutable(binary, args);
+    const options: vscode.DebugAdapterExecutableOptions = {
+      env: { ...process.env, ...env },
+    };
+    return new vscode.DebugAdapterExecutable(binary, args, options);
   }
 }
